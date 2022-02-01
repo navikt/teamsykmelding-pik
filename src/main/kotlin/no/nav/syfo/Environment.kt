@@ -3,6 +3,7 @@ package no.nav.syfo
 data class Environment(
     val applicationPort: Int = getEnvVar("APPLICATION_PORT", "8080").toInt(),
     val applicationName: String = getEnvVar("NAIS_APP_NAME", "teamsykmelding-pik"),
+    val cluster: String = getEnvVar("NAIS_CLUSTER_NAME"),
     val internPikTopic: String = "teamsykmelding.paragraf-i-kode",
     val etterlevelseTopic: String = "flex.juridisk-vurdering-test" // skal byttes ut med reell topic når denne er klar
 )

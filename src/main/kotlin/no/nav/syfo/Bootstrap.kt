@@ -7,10 +7,10 @@ import no.nav.syfo.application.ApplicationState
 import no.nav.syfo.application.createApplicationEngine
 import no.nav.syfo.etterlevelse.EtterlevelseService
 import no.nav.syfo.etterlevelse.model.JuridiskVurderingKafkaMessage
+import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
 import no.nav.syfo.kafka.aiven.KafkaUtils
 import no.nav.syfo.kafka.toConsumerConfig
 import no.nav.syfo.kafka.toProducerConfig
-import no.nav.syfo.model.ValidationResult
 import no.nav.syfo.util.JacksonKafkaDeserializer
 import no.nav.syfo.util.JacksonKafkaSerializer
 import org.apache.kafka.clients.consumer.ConsumerConfig
@@ -33,7 +33,7 @@ fun main() {
             it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest"
         }.toConsumerConfig(env.applicationName, JacksonKafkaDeserializer::class),
         StringDeserializer(),
-        JacksonKafkaDeserializer(ValidationResult::class)
+        JacksonKafkaDeserializer(JuridiskVurderingResult::class)
     )
 
     val kafkaProducer = KafkaProducer<String, JuridiskVurderingKafkaMessage>(
@@ -56,5 +56,9 @@ fun main() {
     applicationServer.start()
     applicationState.ready = true
 
-    etterlevelseService.startConsumer()
+    if (env.cluster == "dev-gcp") {
+        etterlevelseService.startConsumer()
+    } else {
+        log.info("Starter ikke consumer i prod")
+    }
 }

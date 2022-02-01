@@ -66,7 +66,7 @@ dependencies {
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
 
     implementation("no.nav.helse:syfosm-common-kafka:$smCommonVersion")
-    implementation("no.nav.helse:syfosm-common-models:1.b72de20-SNAPSHOT")
+    implementation("no.nav.helse:syfosm-common-models:1.bb83447-SNAPSHOT")
 
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")

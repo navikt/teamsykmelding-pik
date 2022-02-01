@@ -6,9 +6,10 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import no.nav.syfo.application.ApplicationState
+import no.nav.syfo.application.metrics.PRODUCED_MESSAGE_COUNTER
 import no.nav.syfo.etterlevelse.model.JuridiskVurderingKafkaMessage
+import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
 import no.nav.syfo.log
-import no.nav.syfo.model.ValidationResult
 import no.nav.syfo.util.Unbounded
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.clients.producer.KafkaProducer
@@ -18,7 +19,7 @@ import java.time.Instant
 
 class EtterlevelseService(
     private val applicationState: ApplicationState,
-    private val kafkaConsumer: KafkaConsumer<String, ValidationResult>,
+    private val kafkaConsumer: KafkaConsumer<String, JuridiskVurderingResult>,
     private val internPikTopic: String,
     private val kafkaProducer: KafkaProducer<String, JuridiskVurderingKafkaMessage>,
     private val etterlevelseTopic: String
@@ -48,10 +49,8 @@ class EtterlevelseService(
         while (applicationState.ready) {
             val records = kafkaConsumer.poll(Duration.ofSeconds(10))
             records.forEach {
-                if (it.value().juridiskeVurderinger != null) {
-                    it.value().juridiskeVurderinger!!.forEach { juridiskVurdering ->
-                        sendToKafka(juridiskVurdering.tilJuridiskVurderingKafkaMessage())
-                    }
+                it.value().juridiskeVurderinger.forEach { juridiskVurdering ->
+                    sendToKafka(juridiskVurdering.tilJuridiskVurderingKafkaMessage())
                 }
             }
             processedMessages += records.count()
@@ -59,9 +58,10 @@ class EtterlevelseService(
         }
     }
 
-    fun sendToKafka(juridiskVurderingKafkaMessage: JuridiskVurderingKafkaMessage) {
+    private fun sendToKafka(juridiskVurderingKafkaMessage: JuridiskVurderingKafkaMessage) {
         try {
             kafkaProducer.send(ProducerRecord(etterlevelseTopic, juridiskVurderingKafkaMessage.id.toString(), juridiskVurderingKafkaMessage)).get()
+            PRODUCED_MESSAGE_COUNTER.inc()
         } catch (ex: Exception) {
             log.error("Failed to send message to kafka")
             throw ex
