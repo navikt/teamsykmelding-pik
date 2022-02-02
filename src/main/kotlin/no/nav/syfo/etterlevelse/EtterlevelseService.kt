@@ -63,7 +63,7 @@ class EtterlevelseService(
             kafkaProducer.send(ProducerRecord(etterlevelseTopic, juridiskVurderingKafkaMessage.fodselsnummer, juridiskVurderingKafkaMessage)).get()
             PRODUCED_MESSAGE_COUNTER.inc()
         } catch (ex: Exception) {
-            log.error("Failed to send message to kafka")
+            log.error("Failed to send message to kafka for id ${juridiskVurderingKafkaMessage.id}")
             throw ex
         }
     }
