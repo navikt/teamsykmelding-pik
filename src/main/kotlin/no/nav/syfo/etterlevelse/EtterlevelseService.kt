@@ -60,7 +60,7 @@ class EtterlevelseService(
 
     private fun sendToKafka(juridiskVurderingKafkaMessage: JuridiskVurderingKafkaMessage) {
         try {
-            kafkaProducer.send(ProducerRecord(etterlevelseTopic, juridiskVurderingKafkaMessage.id.toString(), juridiskVurderingKafkaMessage)).get()
+            kafkaProducer.send(ProducerRecord(etterlevelseTopic, juridiskVurderingKafkaMessage.fodselsnummer, juridiskVurderingKafkaMessage)).get()
             PRODUCED_MESSAGE_COUNTER.inc()
         } catch (ex: Exception) {
             log.error("Failed to send message to kafka")
