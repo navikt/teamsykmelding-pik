@@ -41,12 +41,12 @@ class JuridiskVurderingMapperKtTest : FunSpec({
             val juridiskVurderingKafkaMessage = juridiskVurderingResult.juridiskeVurderinger.first().tilJuridiskVurderingKafkaMessage()
 
             juridiskVurderingKafkaMessage.id shouldBeEqualTo id
-            juridiskVurderingKafkaMessage.event_name shouldBeEqualTo "subsumsjon"
+            juridiskVurderingKafkaMessage.eventName shouldBeEqualTo "subsumsjon"
             juridiskVurderingKafkaMessage.versjon shouldBeEqualTo "1.0.0"
             juridiskVurderingKafkaMessage.kilde shouldBeEqualTo "syfosmregler"
             juridiskVurderingKafkaMessage.versjonAvKode shouldBeEqualTo "imagenavn"
             juridiskVurderingKafkaMessage.fodselsnummer shouldBeEqualTo "12345678910"
-            juridiskVurderingKafkaMessage.sporing shouldBeEqualTo mapOf("sykmeldingId" to sykmeldingId)
+            juridiskVurderingKafkaMessage.sporing shouldBeEqualTo mapOf("sykmeldingId" to listOf(sykmeldingId))
             juridiskVurderingKafkaMessage.lovverk shouldBeEqualTo "Folketrygdloven"
             juridiskVurderingKafkaMessage.lovverksversjon shouldBeEqualTo "2022-01-01"
             juridiskVurderingKafkaMessage.paragraf shouldBeEqualTo "§8-1"

@@ -12,12 +12,12 @@ val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 fun JuridiskVurdering.tilJuridiskVurderingKafkaMessage(): JuridiskVurderingKafkaMessage {
     return JuridiskVurderingKafkaMessage(
         id = UUID.fromString(id),
-        event_name = eventName,
+        eventName = eventName,
         versjon = version,
         kilde = kilde,
         versjonAvKode = versjonAvKode,
         fodselsnummer = fodselsnummer,
-        sporing = sporing,
+        sporing = sporing.mapValues { listOf(it.value) },
         lovverk = juridiskHenvisning.lovverk.kortnavn,
         lovverksversjon = juridiskHenvisning.lovverk.lovverksversjon.format(formatter),
         paragraf = juridiskHenvisning.paragraf,

@@ -1,20 +1,15 @@
 package no.nav.syfo.etterlevelse.model
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import java.util.UUID
 
 data class JuridiskVurderingKafkaMessage(
-    @JsonProperty("@id")
     val id: UUID,
-    @JsonProperty("@event_name")
-    val event_name: String,
-    @JsonProperty("@versjon")
+    val eventName: String,
     val versjon: String,
-    @JsonProperty("@kilde")
     val kilde: String,
     val versjonAvKode: String,
     val fodselsnummer: String,
-    val sporing: Map<String, String>,
+    val sporing: Map<String, List<String>>,
     val lovverk: String,
     val lovverksversjon: String,
     val paragraf: String,
