@@ -8,7 +8,7 @@ import no.nav.syfo.model.juridisk.JuridiskUtfall
 import no.nav.syfo.model.juridisk.JuridiskVurdering
 import no.nav.syfo.model.juridisk.Lovverk
 import org.amshove.kluent.shouldBeEqualTo
-import java.time.LocalDateTime
+import java.time.OffsetDateTime
 import java.util.UUID
 
 class JuridiskVurderingMapperKtTest : FunSpec({
@@ -39,7 +39,7 @@ class JuridiskVurderingMapperKtTest : FunSpec({
                 )
             )
 
-            val tidsstempel = LocalDateTime.now()
+            val tidsstempel = OffsetDateTime.now()
             val juridiskVurderingKafkaMessage = juridiskVurderingResult.juridiskeVurderinger.first().tilJuridiskVurderingKafkaMessage(tidsstempel)
 
             juridiskVurderingKafkaMessage.id shouldBeEqualTo id
