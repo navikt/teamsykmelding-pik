@@ -8,6 +8,7 @@ import no.nav.syfo.model.juridisk.JuridiskUtfall
 import no.nav.syfo.model.juridisk.JuridiskVurdering
 import no.nav.syfo.model.juridisk.Lovverk
 import org.amshove.kluent.shouldBeEqualTo
+import java.time.LocalDateTime
 import java.util.UUID
 
 class JuridiskVurderingMapperKtTest : FunSpec({
@@ -38,16 +39,18 @@ class JuridiskVurderingMapperKtTest : FunSpec({
                 )
             )
 
-            val juridiskVurderingKafkaMessage = juridiskVurderingResult.juridiskeVurderinger.first().tilJuridiskVurderingKafkaMessage()
+            val tidsstempel = LocalDateTime.now()
+            val juridiskVurderingKafkaMessage = juridiskVurderingResult.juridiskeVurderinger.first().tilJuridiskVurderingKafkaMessage(tidsstempel)
 
             juridiskVurderingKafkaMessage.id shouldBeEqualTo id
+            juridiskVurderingKafkaMessage.tidsstempel shouldBeEqualTo tidsstempel
             juridiskVurderingKafkaMessage.eventName shouldBeEqualTo "subsumsjon"
             juridiskVurderingKafkaMessage.versjon shouldBeEqualTo "1.0.0"
             juridiskVurderingKafkaMessage.kilde shouldBeEqualTo "syfosmregler"
             juridiskVurderingKafkaMessage.versjonAvKode shouldBeEqualTo "imagenavn"
             juridiskVurderingKafkaMessage.fodselsnummer shouldBeEqualTo "12345678910"
             juridiskVurderingKafkaMessage.sporing shouldBeEqualTo mapOf("sykmeldingId" to listOf(sykmeldingId))
-            juridiskVurderingKafkaMessage.lovverk shouldBeEqualTo "Folketrygdloven"
+            juridiskVurderingKafkaMessage.lovverk shouldBeEqualTo "folketrygdloven"
             juridiskVurderingKafkaMessage.lovverksversjon shouldBeEqualTo "2022-01-01"
             juridiskVurderingKafkaMessage.paragraf shouldBeEqualTo "§8-1"
             juridiskVurderingKafkaMessage.ledd shouldBeEqualTo 1

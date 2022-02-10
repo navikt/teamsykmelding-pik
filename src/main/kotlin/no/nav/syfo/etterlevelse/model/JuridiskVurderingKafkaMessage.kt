@@ -1,9 +1,11 @@
 package no.nav.syfo.etterlevelse.model
 
+import java.time.LocalDateTime
 import java.util.UUID
 
 data class JuridiskVurderingKafkaMessage(
     val id: UUID,
+    val tidsstempel: LocalDateTime,
     val eventName: String,
     val versjon: String,
     val kilde: String,
