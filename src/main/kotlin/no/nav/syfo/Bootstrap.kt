@@ -56,9 +56,5 @@ fun main() {
     applicationServer.start()
     applicationState.ready = true
 
-    if (env.cluster == "dev-gcp") {
-        etterlevelseService.startConsumer()
-    } else {
-        log.info("Starter ikke consumer i prod")
-    }
+    etterlevelseService.startConsumer()
 }
