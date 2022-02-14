@@ -5,7 +5,7 @@ data class Environment(
     val applicationName: String = getEnvVar("NAIS_APP_NAME", "teamsykmelding-pik"),
     val cluster: String = getEnvVar("NAIS_CLUSTER_NAME"),
     val internPikTopic: String = "teamsykmelding.paragraf-i-kode",
-    val etterlevelseTopic: String = "flex.omrade-helse-etterlevelse" // skal byttes ut med reell topic når denne er klar
+    val etterlevelseTopic: String = "flex.omrade-helse-etterlevelse"
 )
 
 fun getEnvVar(varName: String, defaultValue: String? = null) =

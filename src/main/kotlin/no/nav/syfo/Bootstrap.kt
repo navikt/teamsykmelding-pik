@@ -30,7 +30,7 @@ fun main() {
 
     val kafkaConsumer = KafkaConsumer(
         KafkaUtils.getAivenKafkaConfig().also {
-            it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "earliest"
+            it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "latest"
         }.toConsumerConfig(env.applicationName, JacksonKafkaDeserializer::class),
         StringDeserializer(),
         JacksonKafkaDeserializer(JuridiskVurderingResult::class)
