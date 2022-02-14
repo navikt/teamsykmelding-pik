@@ -12,9 +12,9 @@ val ktorVersion = "1.6.7"
 val logbackVersion = "1.2.10"
 val logstashEncoderVersion = "7.0.1"
 val prometheusVersion = "0.14.1"
-val smCommonVersion = "1.a92720c"
+val smCommonVersion = "1.efc6e77"
 val mockkVersion = "1.12.2"
-val testContainerKafkaVersion = "1.16.2"
+val testContainerKafkaVersion = "1.16.3"
 val kotlinVersion = "1.6.0"
 val kotestVersion = "5.1.0"
 
@@ -65,6 +65,9 @@ dependencies {
     implementation("io.ktor:ktor-auth:$ktorVersion")
     implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
 
+    implementation("no.nav.helse:syfosm-common-kafka:$smCommonVersion")
+    implementation("no.nav.helse:syfosm-common-models:$smCommonVersion")
+
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")
 
@@ -82,6 +85,8 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.kotest:kotest-property:$kotestVersion")
+
+    testImplementation("com.networknt:json-schema-validator:1.0.65")
 }
 
 tasks.jacocoTestReport {
