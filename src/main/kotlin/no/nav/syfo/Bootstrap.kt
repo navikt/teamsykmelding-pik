@@ -53,8 +53,6 @@ fun main() {
         applicationState
     )
     val applicationServer = ApplicationServer(applicationEngine, applicationState)
-    applicationServer.start()
-    applicationState.ready = true
-
     etterlevelseService.startConsumer()
+    applicationServer.start()
 }
