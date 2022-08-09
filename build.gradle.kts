@@ -5,19 +5,19 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 group = "no.nav.syfo"
 version = "1.0.0"
 
-val coroutinesVersion = "1.6.1"
+val coroutinesVersion = "1.6.4"
 val jacksonVersion = "2.13.3"
 val kluentVersion = "1.68"
-val ktorVersion = "2.0.1"
+val ktorVersion = "2.0.3"
 val logbackVersion = "1.2.11"
-val logstashEncoderVersion = "7.1.1"
-val prometheusVersion = "0.15.0"
-val smCommonVersion = "1.f132f2b"
-val mockkVersion = "1.12.4"
+val logstashEncoderVersion = "7.2"
+val prometheusVersion = "0.16.0"
+val smCommonVersion = "1.cb455aa"
+val mockkVersion = "1.12.5"
 val testContainerKafkaVersion = "1.17.1"
-val kotlinVersion = "1.6.21"
-val kotestVersion = "5.3.0"
-val jsonSchemaValidatorVersion = "1.0.69"
+val kotlinVersion = "1.7.10"
+val kotestVersion = "5.4.1"
+val jsonSchemaValidatorVersion = "1.0.72"
 
 tasks.withType<Jar> {
     manifest.attributes["Main-Class"] = "no.nav.syfo.BootstrapKt"
@@ -25,7 +25,7 @@ tasks.withType<Jar> {
 
 plugins {
     id("org.jmailen.kotlinter") version "3.10.0"
-    kotlin("jvm") version "1.6.21"
+    kotlin("jvm") version "1.7.10"
     id("com.diffplug.spotless") version "6.5.0"
     id("com.github.johnrengelman.shadow") version "7.1.2"
     jacoco
@@ -88,8 +88,8 @@ dependencies {
 
 tasks.jacocoTestReport {
     reports {
-        xml.isEnabled = true
-        html.isEnabled = true
+        xml.required.set(true)
+        html.required.set(true)
     }
 }
 

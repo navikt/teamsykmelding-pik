@@ -8,6 +8,7 @@ import no.nav.syfo.model.juridisk.JuridiskUtfall
 import no.nav.syfo.model.juridisk.JuridiskVurdering
 import no.nav.syfo.model.juridisk.Lovverk
 import org.amshove.kluent.shouldBeEqualTo
+import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.util.UUID
 
@@ -34,7 +35,8 @@ class JuridiskVurderingMapperKtTest : FunSpec({
                         ),
                         sporing = mapOf("sykmeldingId" to sykmeldingId),
                         input = mapOf("input" to "verdi"),
-                        utfall = JuridiskUtfall.VILKAR_OPPFYLT
+                        utfall = JuridiskUtfall.VILKAR_OPPFYLT,
+                        tidsstempel = LocalDateTime.now()
                     )
                 )
             )

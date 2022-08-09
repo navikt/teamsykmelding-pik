@@ -11,6 +11,7 @@ import no.nav.syfo.model.juridisk.JuridiskHenvisning
 import no.nav.syfo.model.juridisk.JuridiskUtfall
 import no.nav.syfo.model.juridisk.JuridiskVurdering
 import no.nav.syfo.model.juridisk.Lovverk
+import java.time.LocalDateTime
 import java.time.OffsetDateTime
 import java.util.UUID
 
@@ -42,7 +43,8 @@ class JuridiskVurderingSchemaTest : FunSpec({
                         ),
                         sporing = mapOf("sykmelding" to sykmeldingId),
                         input = mapOf("input" to "verdi"),
-                        utfall = JuridiskUtfall.VILKAR_OPPFYLT
+                        utfall = JuridiskUtfall.VILKAR_OPPFYLT,
+                        tidsstempel = LocalDateTime.now()
                     )
                 )
             )
