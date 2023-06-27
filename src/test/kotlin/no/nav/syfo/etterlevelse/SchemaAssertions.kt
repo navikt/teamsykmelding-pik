@@ -5,15 +5,18 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.networknt.schema.JsonSchemaFactory
 import com.networknt.schema.SpecVersion.VersionFlag.V7
 import com.networknt.schema.ValidationMessage
-import org.junit.jupiter.api.Assertions.assertEquals
 import java.net.URI
+import org.junit.jupiter.api.Assertions.assertEquals
 
 internal object SchemaAssertions {
     private val objectMapper = jacksonObjectMapper()
     private val schema by lazy {
-        JsonSchemaFactory
-            .getInstance(V7)
-            .getSchema(URI("https://raw.githubusercontent.com/navikt/helse/main/subsumsjon/json-schema-1.0.0.json"))
+        JsonSchemaFactory.getInstance(V7)
+            .getSchema(
+                URI(
+                    "https://raw.githubusercontent.com/navikt/helse/main/subsumsjon/json-schema-1.0.0.json"
+                )
+            )
     }
 
     private fun assertSchema(melding: JsonNode) {

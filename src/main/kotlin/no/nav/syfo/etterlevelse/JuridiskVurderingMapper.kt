@@ -1,16 +1,18 @@
 package no.nav.syfo.etterlevelse
 
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.util.UUID
 import no.nav.syfo.etterlevelse.model.JuridiskVurderingKafkaMessage
 import no.nav.syfo.etterlevelse.model.Utfall
 import no.nav.syfo.model.juridisk.JuridiskUtfall
 import no.nav.syfo.model.juridisk.JuridiskVurdering
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
-import java.util.UUID
 
 val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
-fun JuridiskVurdering.tilJuridiskVurderingKafkaMessage(tidsstempel: OffsetDateTime = OffsetDateTime.now()): JuridiskVurderingKafkaMessage {
+fun JuridiskVurdering.tilJuridiskVurderingKafkaMessage(
+    tidsstempel: OffsetDateTime = OffsetDateTime.now()
+): JuridiskVurderingKafkaMessage {
     return JuridiskVurderingKafkaMessage(
         id = UUID.fromString(id),
         tidsstempel = tidsstempel,

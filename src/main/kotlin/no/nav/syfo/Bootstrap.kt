@@ -28,30 +28,33 @@ fun main() {
     DefaultExports.initialize()
     val applicationState = ApplicationState()
 
-    val kafkaConsumer = KafkaConsumer(
-        KafkaUtils.getAivenKafkaConfig().also {
-            it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "none"
-        }.toConsumerConfig(env.applicationName, JacksonKafkaDeserializer::class),
-        StringDeserializer(),
-        JacksonKafkaDeserializer(JuridiskVurderingResult::class)
-    )
+    val kafkaConsumer =
+        KafkaConsumer(
+            KafkaUtils.getAivenKafkaConfig()
+                .also { it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "none" }
+                .toConsumerConfig(env.applicationName, JacksonKafkaDeserializer::class),
+            StringDeserializer(),
+            JacksonKafkaDeserializer(JuridiskVurderingResult::class)
+        )
 
-    val kafkaProducer = KafkaProducer<String, JuridiskVurderingKafkaMessage>(
-        KafkaUtils.getAivenKafkaConfig()
-            .toProducerConfig(env.applicationName, valueSerializer = JacksonKafkaSerializer::class)
-    )
-    val etterlevelseService = EtterlevelseService(
-        applicationState = applicationState,
-        kafkaConsumer = kafkaConsumer,
-        internPikTopic = env.internPikTopic,
-        kafkaProducer = kafkaProducer,
-        etterlevelseTopic = env.etterlevelseTopic
-    )
+    val kafkaProducer =
+        KafkaProducer<String, JuridiskVurderingKafkaMessage>(
+            KafkaUtils.getAivenKafkaConfig()
+                .toProducerConfig(
+                    env.applicationName,
+                    valueSerializer = JacksonKafkaSerializer::class
+                )
+        )
+    val etterlevelseService =
+        EtterlevelseService(
+            applicationState = applicationState,
+            kafkaConsumer = kafkaConsumer,
+            internPikTopic = env.internPikTopic,
+            kafkaProducer = kafkaProducer,
+            etterlevelseTopic = env.etterlevelseTopic
+        )
 
-    val applicationEngine = createApplicationEngine(
-        env,
-        applicationState
-    )
+    val applicationEngine = createApplicationEngine(env, applicationState)
     val applicationServer = ApplicationServer(applicationEngine, applicationState)
     etterlevelseService.startConsumer()
     applicationServer.start()

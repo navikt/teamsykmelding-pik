@@ -5,35 +5,32 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 group = "no.nav.syfo"
 version = "1.0.0"
 
-val coroutinesVersion = "1.6.4"
-val jacksonVersion = "2.14.2"
+val coroutinesVersion = "1.7.0"
+val jacksonVersion = "2.15.2"
 val kluentVersion = "1.72"
-val ktorVersion = "2.2.4"
+val ktorVersion = "2.3.1"
 val logbackVersion = "1.4.5"
 val logstashEncoderVersion = "7.3"
 val prometheusVersion = "0.16.0"
-val smCommonVersion = "1.d6548c5"
+val smCommonVersion = "1.0.9"
 val mockkVersion = "1.13.2"
 val testContainerKafkaVersion = "1.17.6"
-val kotlinVersion = "1.8.10"
+val kotlinVersion = "1.8.22"
 val kotestVersion = "5.5.4"
 val jsonSchemaValidatorVersion = "1.0.73"
+val ktfmtVersion = "0.44"
 
 tasks.withType<Jar> {
     manifest.attributes["Main-Class"] = "no.nav.syfo.BootstrapKt"
 }
 
 plugins {
-    id("org.jmailen.kotlinter") version "3.12.0"
-    kotlin("jvm") version "1.8.10"
-    id("com.diffplug.spotless") version "6.11.0"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    kotlin("jvm") version "1.8.22"
+    id("com.diffplug.spotless") version "6.19.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
+    id("org.cyclonedx.bom") version "1.7.4"
 }
 
-buildscript {
-    dependencies {
-    }
-}
 
 val githubUser: String by project
 val githubPassword: String by project
@@ -111,7 +108,10 @@ tasks {
         }
     }
 
-    "check" {
-        dependsOn("formatKotlin")
+    spotless {
+        kotlin { ktfmt(ktfmtVersion).kotlinlangStyle() }
+        check {
+            dependsOn("spotlessApply")
+        }
     }
 }

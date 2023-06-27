@@ -1,5 +1,7 @@
 package no.nav.syfo.etterlevelse
 
+import java.time.Duration
+import java.time.Instant
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -14,8 +16,6 @@ import no.nav.syfo.util.Unbounded
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.clients.producer.ProducerRecord
-import java.time.Duration
-import java.time.Instant
 
 class EtterlevelseService(
     private val applicationState: ApplicationState,
@@ -36,7 +36,10 @@ class EtterlevelseService(
                     kafkaConsumer.subscribe(listOf(internPikTopic))
                     start()
                 } catch (ex: Exception) {
-                    log.error("Error running kafka consumer, unsubscribing and waiting 10 seconds for retry", ex)
+                    log.error(
+                        "Error running kafka consumer, unsubscribing and waiting 10 seconds for retry",
+                        ex
+                    )
                     kafkaConsumer.unsubscribe()
                     delay(10_000)
                 }
@@ -60,7 +63,15 @@ class EtterlevelseService(
 
     private fun sendToKafka(juridiskVurderingKafkaMessage: JuridiskVurderingKafkaMessage) {
         try {
-            kafkaProducer.send(ProducerRecord(etterlevelseTopic, juridiskVurderingKafkaMessage.fodselsnummer, juridiskVurderingKafkaMessage)).get()
+            kafkaProducer
+                .send(
+                    ProducerRecord(
+                        etterlevelseTopic,
+                        juridiskVurderingKafkaMessage.fodselsnummer,
+                        juridiskVurderingKafkaMessage
+                    )
+                )
+                .get()
             PRODUCED_MESSAGE_COUNTER.inc()
         } catch (ex: Exception) {
             log.error("Failed to send message to kafka for id ${juridiskVurderingKafkaMessage.id}")
