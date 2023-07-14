@@ -16,7 +16,7 @@ val smCommonVersion = "1.0.9"
 val mockkVersion = "1.13.2"
 val testContainerKafkaVersion = "1.17.6"
 val kotlinVersion = "1.8.22"
-val kotestVersion = "5.5.4"
+val kotestVersion = "5.6.2"
 val jsonSchemaValidatorVersion = "1.0.73"
 val ktfmtVersion = "0.44"
 
