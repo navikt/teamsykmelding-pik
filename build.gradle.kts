@@ -17,7 +17,7 @@ val mockkVersion = "1.13.5"
 val testContainerKafkaVersion = "1.17.6"
 val kotlinVersion = "1.9.0"
 val kotestVersion = "5.6.2"
-val jsonSchemaValidatorVersion = "1.0.73"
+val jsonSchemaValidatorVersion = "1.0.86"
 val ktfmtVersion = "0.44"
 
 tasks.withType<Jar> {
