@@ -1,8 +1,9 @@
 package no.nav.syfo.etterlevelse
 
 import io.kotest.core.spec.style.FunSpec
-import java.time.LocalDateTime
 import java.time.OffsetDateTime
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import java.util.UUID
 import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
 import no.nav.syfo.etterlevelse.model.Utfall
@@ -39,7 +40,7 @@ class JuridiskVurderingMapperKtTest :
                                 sporing = mapOf("sykmeldingId" to sykmeldingId),
                                 input = mapOf("input" to "verdi"),
                                 utfall = JuridiskUtfall.VILKAR_OPPFYLT,
-                                tidsstempel = LocalDateTime.now()
+                                tidsstempel = ZonedDateTime.now(ZoneOffset.UTC)
                             )
                         )
                     )

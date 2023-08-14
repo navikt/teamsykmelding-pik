@@ -30,7 +30,7 @@ fun main() {
 
     val kafkaConsumer =
         KafkaConsumer(
-            KafkaUtils.getAivenKafkaConfig()
+            KafkaUtils.getAivenKafkaConfig("paragraf-i-kode-consumer")
                 .also { it[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "none" }
                 .toConsumerConfig(env.applicationName, JacksonKafkaDeserializer::class),
             StringDeserializer(),
@@ -39,7 +39,7 @@ fun main() {
 
     val kafkaProducer =
         KafkaProducer<String, JuridiskVurderingKafkaMessage>(
-            KafkaUtils.getAivenKafkaConfig()
+            KafkaUtils.getAivenKafkaConfig("omrade-helse-etterlevelse-producer")
                 .toProducerConfig(
                     env.applicationName,
                     valueSerializer = JacksonKafkaSerializer::class
