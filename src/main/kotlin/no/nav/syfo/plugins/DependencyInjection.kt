@@ -48,7 +48,7 @@ val etterlevelseModule = module {
                             "${env.hostname}-consumer"
                     this[ConsumerConfig.AUTO_OFFSET_RESET_CONFIG] = "none"
                     this[ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG] = "true"
-                    this[ConsumerConfig.MAX_POLL_RECORDS_CONFIG] = "1"
+                    this[ConsumerConfig.MAX_POLL_RECORDS_CONFIG] = "100"
                 },
                 StringDeserializer(), JacksonKafkaDeserializer(),
         )

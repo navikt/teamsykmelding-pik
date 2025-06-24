@@ -6,7 +6,6 @@ import kotlinx.coroutines.isActive
 import no.nav.syfo.application.metrics.PRODUCED_MESSAGE_COUNTER
 import no.nav.syfo.etterlevelse.model.JuridiskVurderingKafkaMessage
 import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
-import no.nav.syfo.log
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.clients.producer.ProducerRecord
@@ -62,7 +61,6 @@ class EtterlevelseService(
                     )
                 )
                 .get()
-            log.info("Sendt juridisk vurdering to $etterlevelseTopic, sporing ${juridiskVurderingKafkaMessage.sporing}")
             PRODUCED_MESSAGE_COUNTER.inc()
         } catch (ex: Exception) {
             log.error("Failed to send message to kafka for id ${juridiskVurderingKafkaMessage.id}, sporing ${juridiskVurderingKafkaMessage.sporing}")
