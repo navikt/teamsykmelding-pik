@@ -6,15 +6,15 @@ import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import io.kotest.core.spec.style.FunSpec
+import no.nav.syfo.etterlevelse.model.JuridiskHenvisning
+import no.nav.syfo.etterlevelse.model.JuridiskUtfall
+import no.nav.syfo.etterlevelse.model.JuridiskVurdering
+import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
+import no.nav.syfo.etterlevelse.model.Lovverk
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.util.UUID
-import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
-import no.nav.syfo.model.juridisk.JuridiskHenvisning
-import no.nav.syfo.model.juridisk.JuridiskUtfall
-import no.nav.syfo.model.juridisk.JuridiskVurdering
-import no.nav.syfo.model.juridisk.Lovverk
 
 class JuridiskVurderingSchemaTest :
     FunSpec({

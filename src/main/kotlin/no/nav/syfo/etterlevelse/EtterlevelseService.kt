@@ -1,36 +1,29 @@
 package no.nav.syfo.etterlevelse
 
-import java.time.Duration
-import java.time.Instant
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import no.nav.syfo.application.ApplicationState
+import kotlinx.coroutines.isActive
 import no.nav.syfo.application.metrics.PRODUCED_MESSAGE_COUNTER
 import no.nav.syfo.etterlevelse.model.JuridiskVurderingKafkaMessage
 import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
 import no.nav.syfo.log
-import no.nav.syfo.util.Unbounded
 import org.apache.kafka.clients.consumer.KafkaConsumer
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.clients.producer.ProducerRecord
+import org.slf4j.LoggerFactory
+import java.time.Duration
 
 class EtterlevelseService(
-    private val applicationState: ApplicationState,
     private val kafkaConsumer: KafkaConsumer<String, JuridiskVurderingResult>,
     private val internPikTopic: String,
     private val kafkaProducer: KafkaProducer<String, JuridiskVurderingKafkaMessage>,
     private val etterlevelseTopic: String
 ) {
-    private var lastLogTime = Instant.now().toEpochMilli()
-    private val logTimer = 60_000L
-
-    @DelicateCoroutinesApi
-    fun startConsumer() {
-        GlobalScope.launch(Dispatchers.Unbounded) {
-            while (applicationState.ready) {
+    companion object {
+        private val log = LoggerFactory.getLogger(EtterlevelseService::class.java)
+    }
+    suspend fun startConsumer() = coroutineScope {
+            while (isActive) {
                 try {
                     log.info("Starting consuming topic")
                     kafkaConsumer.subscribe(listOf(internPikTopic))
@@ -44,25 +37,22 @@ class EtterlevelseService(
                     delay(10_000)
                 }
             }
-        }
     }
 
-    private fun start() {
-        var processedMessages = 0
-        while (applicationState.ready) {
+    private suspend fun start() = coroutineScope {
+        while (isActive) {
             val records = kafkaConsumer.poll(Duration.ofSeconds(10))
             records.forEach {
                 it.value().juridiskeVurderinger.forEach { juridiskVurdering ->
                     sendToKafka(juridiskVurdering.tilJuridiskVurderingKafkaMessage())
                 }
             }
-            processedMessages += records.count()
-            processedMessages = logProcessedMessages(processedMessages)
         }
     }
 
     private fun sendToKafka(juridiskVurderingKafkaMessage: JuridiskVurderingKafkaMessage) {
         try {
+
             kafkaProducer
                 .send(
                     ProducerRecord(
@@ -72,20 +62,11 @@ class EtterlevelseService(
                     )
                 )
                 .get()
+            log.info("Sendt juridisk vurdering to $etterlevelseTopic, sporing ${juridiskVurderingKafkaMessage.sporing}")
             PRODUCED_MESSAGE_COUNTER.inc()
         } catch (ex: Exception) {
-            log.error("Failed to send message to kafka for id ${juridiskVurderingKafkaMessage.id}")
+            log.error("Failed to send message to kafka for id ${juridiskVurderingKafkaMessage.id}, sporing ${juridiskVurderingKafkaMessage.sporing}")
             throw ex
         }
-    }
-
-    private fun logProcessedMessages(processedMessages: Int): Int {
-        val currentLogTime = Instant.now().toEpochMilli()
-        if (processedMessages > 0 && currentLogTime - lastLogTime > logTimer) {
-            log.info("Processed $processedMessages messages")
-            lastLogTime = currentLogTime
-            return 0
-        }
-        return processedMessages
     }
 }

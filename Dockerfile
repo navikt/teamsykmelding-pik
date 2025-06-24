@@ -1,6 +1,6 @@
-FROM gcr.io/distroless/java17
+FROM gcr.io/distroless/java21-debian12@sha256:a4f6bbb87e71a7b66779c1df54aaed68623dbd861e957972ee9f2b5c3e050075
 WORKDIR /app
-COPY build/libs/*-all.jar app.jar
+COPY build/libs/teamsykmelding-pik-all.jar app.jar
 ENV JAVA_OPTS="-Dlogback.configurationFile=logback.xml"
 ENV TZ="Europe/Oslo"
 EXPOSE 8080

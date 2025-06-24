@@ -1,0 +1,17 @@
+ktor:
+  environment: local
+  application:
+    modules:
+      - no.nav.syfo.ApplicationKt.module
+  deployment:
+    port: 8080
+  kafka:
+    config:
+      bootstrap.servers: $KAFKA_BROKERS
+      security.protocol: "SSL"
+      ssl.truststore.location: $KAFKA_TRUSTSTORE_PATH
+      ssl.truststore.password: $KAFKA_CREDSTORE_PASSWORD
+      ssl.truststore.type: "jks"
+      ssl.keystore.location: $KAFKA_KEYSTORE_PATH
+      ssl.keystore.password: $KAFKA_CREDSTORE_PASSWORD
+      ssl.keystore.type: "PKCS12"

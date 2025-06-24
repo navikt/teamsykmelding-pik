@@ -27,5 +27,4 @@ enum class Utfall {
     VILKAR_OPPFYLT,
     VILKAR_IKKE_OPPFYLT,
     VILKAR_UAVKLART,
-    VILKAR_BEREGNET
 }

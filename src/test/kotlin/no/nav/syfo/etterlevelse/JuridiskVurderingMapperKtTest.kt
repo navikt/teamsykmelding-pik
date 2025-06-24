@@ -1,17 +1,17 @@
 package no.nav.syfo.etterlevelse
 
 import io.kotest.core.spec.style.FunSpec
+import no.nav.syfo.etterlevelse.model.JuridiskHenvisning
+import no.nav.syfo.etterlevelse.model.JuridiskUtfall
+import no.nav.syfo.etterlevelse.model.JuridiskVurdering
+import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
+import no.nav.syfo.etterlevelse.model.Lovverk
+import no.nav.syfo.etterlevelse.model.Utfall
+import org.amshove.kluent.shouldBeEqualTo
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import java.util.UUID
-import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
-import no.nav.syfo.etterlevelse.model.Utfall
-import no.nav.syfo.model.juridisk.JuridiskHenvisning
-import no.nav.syfo.model.juridisk.JuridiskUtfall
-import no.nav.syfo.model.juridisk.JuridiskVurdering
-import no.nav.syfo.model.juridisk.Lovverk
-import org.amshove.kluent.shouldBeEqualTo
 
 class JuridiskVurderingMapperKtTest :
     FunSpec({
