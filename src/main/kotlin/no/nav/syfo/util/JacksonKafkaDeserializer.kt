@@ -5,10 +5,11 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import kotlin.reflect.KClass
+import com.fasterxml.jackson.module.kotlin.readValue
+import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
 import org.apache.kafka.common.serialization.Deserializer
 
-class JacksonKafkaDeserializer<T : Any>(private val type: KClass<T>) : Deserializer<T> {
+class JacksonKafkaDeserializer : Deserializer<JuridiskVurderingResult> {
     private val objectMapper: ObjectMapper =
         jacksonObjectMapper().apply {
             registerModule(JavaTimeModule())
@@ -19,8 +20,8 @@ class JacksonKafkaDeserializer<T : Any>(private val type: KClass<T>) : Deseriali
 
     override fun configure(configs: MutableMap<String, *>, isKey: Boolean) {}
 
-    override fun deserialize(topic: String?, data: ByteArray): T {
-        return objectMapper.readValue(data, type.java)
+    override fun deserialize(topic: String, data: ByteArray): JuridiskVurderingResult {
+        return objectMapper.readValue(data)
     }
 
     override fun close() {}
