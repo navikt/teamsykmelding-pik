@@ -13,7 +13,7 @@ val testContainerKafkaVersion = "1.17.6"
 val kotlinVersion = "2.0.20"
 val kotestVersion = "5.9.0"
 val jsonSchemaValidatorVersion = "1.5.2"
-val koinVersion="4.0.0"
+val koinVersion="4.1.0"
 val kafkaVersion= "3.9.1"
 
 application {
