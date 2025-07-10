@@ -14,7 +14,7 @@ val kotlinVersion = "2.0.20"
 val kotestVersion = "5.9.0"
 val jsonSchemaValidatorVersion = "1.5.2"
 val koinVersion="4.0.0"
-val kafkaVersion= "3.9.1"
+val kafkaVersion= "8.0.0-ce"
 
 application {
     mainClass.set("no.nav.syfo.ApplicationKt")
