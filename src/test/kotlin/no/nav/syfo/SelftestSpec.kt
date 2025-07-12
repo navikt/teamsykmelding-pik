@@ -5,7 +5,7 @@ import io.ktor.http.HttpMethod
 import io.ktor.client.statement.bodyAsText
 import io.ktor.client.request.get
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.testing.TestApplicationEngine
+import io.ktor.server.testing.testApplication
 import io.ktor.server.testing.handleRequest
 import no.nav.syfo.plugins.configureInternalRouting
 import org.amshove.kluent.shouldBeEqualTo
