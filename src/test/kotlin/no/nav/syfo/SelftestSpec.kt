@@ -18,8 +18,8 @@ class SelftestSpec :
                         configureInternalRouting()
                     }
                     val response = client.get("/internal/is_alive")
-                        response.status() shouldBeEqualTo HttpStatusCode.OK
-                        response.content shouldBeEqualTo "I'm alive! :)"
+                        response.status shouldBeEqualTo HttpStatusCode.OK
+                        response.bodyAsText() shouldBeEqualTo "I'm alive! :)"
                     }
                 }
                 test("Returns ok in is_ready") {
@@ -28,8 +28,8 @@ class SelftestSpec :
                         configureInternalRouting()
                         }
                         val response = client.get("/internal/is_ready")
-                        response.status() shouldBeEqualTo HttpStatusCode.OK
-                        response.content shouldBeEqualTo "I'm ready! :)"
+                        response.status shouldBeEqualTo HttpStatusCode.OK
+                        response.bodyAsText() shouldBeEqualTo "I'm ready! :)"
                     }
                 }
             }
