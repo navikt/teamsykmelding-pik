@@ -11,7 +11,7 @@ import org.amshove.kluent.shouldBeEqualTo
 class SelftestSpec :
     FunSpec({
         context("Successfull liveness and readyness tests") {
-            with(TestApplicationEngine()) {
+            testApplication {
                 start()
                 application.configureInternalRouting()
 
