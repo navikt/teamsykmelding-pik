@@ -2,13 +2,13 @@ group = "no.nav.syfo"
 version = "1.0.0"
 
 val coroutinesVersion = "1.10.2"
-val jacksonVersion = "2.19.1"
+val jacksonVersion = "2.19.2"
 val kluentVersion = "1.73"
 val ktorVersion = "3.2.1"
 val logbackVersion = "1.5.18"
 val logstashEncoderVersion = "8.1"
 val prometheusVersion = "0.16.0"
-val mockkVersion = "1.14.4"
+val mockkVersion = "1.14.5"
 val testContainerKafkaVersion = "1.17.6"
 val kotlinVersion = "2.2.0"
 val kotestVersion = "5.9.1"
@@ -22,7 +22,7 @@ application {
 
 plugins {
     kotlin("jvm") version "2.2.0"
-    id("io.ktor.plugin") version "3.2.1"
+    id("io.ktor.plugin") version "3.2.2"
 }
 
 repositories {
