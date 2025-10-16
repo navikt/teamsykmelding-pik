@@ -8,10 +8,10 @@ val ktorVersion = "3.2.1"
 val logbackVersion = "1.5.19"
 val logstashEncoderVersion = "8.1"
 val prometheusVersion = "0.16.0"
-val mockkVersion = "1.14.5"
+val mockkVersion = "1.14.6"
 val testContainerKafkaVersion = "1.17.6"
 val kotlinVersion = "2.2.20"
-val kotestVersion = "6.0.3"
+val kotestVersion = "6.0.4"
 val jsonSchemaValidatorVersion = "1.5.9"
 val koinVersion="4.1.1"
 val kafkaVersion= "3.9.1"
@@ -22,7 +22,7 @@ application {
 
 plugins {
     kotlin("jvm") version "2.2.20"
-    id("io.ktor.plugin") version "3.3.0"
+    id("io.ktor.plugin") version "3.3.1"
 }
 
 repositories {
