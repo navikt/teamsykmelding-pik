@@ -2,17 +2,17 @@ group = "no.nav.syfo"
 version = "1.0.0"
 
 val coroutinesVersion = "1.10.2"
-val jacksonVersion = "2.20.0"
+val jacksonVersion = "2.20.1"
 val kluentVersion = "1.73"
 val ktorVersion = "3.2.1"
-val logbackVersion = "1.5.19"
-val logstashEncoderVersion = "8.1"
+val logbackVersion = "1.5.21"
+val logstashEncoderVersion = "9.0"
 val prometheusVersion = "0.16.0"
-val mockkVersion = "1.14.5"
+val mockkVersion = "1.14.6"
 val testContainerKafkaVersion = "1.17.6"
-val kotlinVersion = "2.2.20"
-val kotestVersion = "6.0.3"
-val jsonSchemaValidatorVersion = "1.5.9"
+val kotlinVersion = "2.2.21"
+val kotestVersion = "6.0.5"
+val jsonSchemaValidatorVersion = "2.0.0"
 val koinVersion="4.1.1"
 val kafkaVersion= "3.9.1"
 
@@ -21,8 +21,8 @@ application {
 }
 
 plugins {
-    kotlin("jvm") version "2.2.20"
-    id("io.ktor.plugin") version "3.3.0"
+    kotlin("jvm") version "2.2.21"
+    id("io.ktor.plugin") version "3.3.3"
 }
 
 repositories {
