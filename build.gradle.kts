@@ -12,7 +12,7 @@ val mockkVersion = "1.14.6"
 val testContainerKafkaVersion = "1.17.6"
 val kotlinVersion = "2.2.21"
 val kotestVersion = "6.0.5"
-val jsonSchemaValidatorVersion = "1.5.9"
+val jsonSchemaValidatorVersion = "2.0.0"
 val koinVersion= "4.1.1"
 val kafkaVersion= "3.9.1"
 
