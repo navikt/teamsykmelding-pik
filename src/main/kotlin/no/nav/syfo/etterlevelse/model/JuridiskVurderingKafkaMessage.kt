@@ -1,5 +1,6 @@
 package no.nav.syfo.etterlevelse.model
 
+import no.nav.tsm.regulus.regula.juridisk.JuridiskUtfall
 import java.time.OffsetDateTime
 import java.util.UUID
 
@@ -20,11 +21,5 @@ data class JuridiskVurderingKafkaMessage(
     val bokstav: String?,
     val input: Map<String, Any>,
     val output: Map<String, Any>?,
-    val utfall: Utfall
+    val utfall: JuridiskUtfall
 )
-
-enum class Utfall {
-    VILKAR_OPPFYLT,
-    VILKAR_IKKE_OPPFYLT,
-    VILKAR_UAVKLART,
-}

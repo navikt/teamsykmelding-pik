@@ -1,12 +1,11 @@
 package no.nav.syfo.etterlevelse
 
-import no.nav.syfo.etterlevelse.model.JuridiskUtfall
-import no.nav.syfo.etterlevelse.model.JuridiskVurdering
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.UUID
 import no.nav.syfo.etterlevelse.model.JuridiskVurderingKafkaMessage
-import no.nav.syfo.etterlevelse.model.Utfall
+import no.nav.tsm.regulus.regula.juridisk.JuridiskUtfall
+import no.nav.tsm.regulus.regula.juridisk.JuridiskVurdering
 
 val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
@@ -30,14 +29,6 @@ fun JuridiskVurdering.tilJuridiskVurderingKafkaMessage(
         bokstav = juridiskHenvisning.bokstav,
         input = input,
         output = null,
-        utfall = utfall.tilUtfall()
+        utfall = utfall,
     )
-}
-
-fun JuridiskUtfall.tilUtfall(): Utfall {
-    return when (this) {
-        JuridiskUtfall.VILKAR_OPPFYLT -> Utfall.VILKAR_OPPFYLT
-        JuridiskUtfall.VILKAR_IKKE_OPPFYLT -> Utfall.VILKAR_IKKE_OPPFYLT
-        JuridiskUtfall.VILKAR_UAVKLART -> Utfall.VILKAR_UAVKLART
-    }
 }
