@@ -15,6 +15,7 @@ val kotestVersion = "6.0.5"
 val jsonSchemaValidatorVersion = "1.5.9"
 val koinVersion= "4.1.1"
 val kafkaVersion= "3.9.1"
+val regulusJuridiskVersion = "51"
 
 application {
     mainClass.set("no.nav.syfo.ApplicationKt")
@@ -28,19 +29,18 @@ plugins {
 repositories {
     mavenCentral()
     maven(url = "https://packages.confluent.io/maven/")
-    maven {
-        url = uri("https://github-package-registry-mirror.gc.nav.no/cached/maven-release")
-    }
+    maven { url = uri("https://github-package-registry-mirror.gc.nav.no/cached/maven-release") }
 }
 
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
-
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-slf4j:$coroutinesVersion")
     implementation("io.prometheus:simpleclient_hotspot:$prometheusVersion")
     implementation("io.prometheus:simpleclient_common:$prometheusVersion")
     implementation("org.apache.kafka:kafka-clients:$kafkaVersion")
+    implementation("no.nav.tsm.regulus:juridisk:$regulusJuridiskVersion")
+
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-config-yaml")
@@ -49,9 +49,9 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
     implementation("io.insert-koin:koin-ktor:$koinVersion")
     implementation("io.insert-koin:koin-logger-slf4j:$koinVersion")
+
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")
-
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
 

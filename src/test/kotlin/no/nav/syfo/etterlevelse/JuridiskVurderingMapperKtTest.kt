@@ -1,12 +1,10 @@
 package no.nav.syfo.etterlevelse
 
 import io.kotest.core.spec.style.FunSpec
-import no.nav.syfo.etterlevelse.model.JuridiskHenvisning
-import no.nav.syfo.etterlevelse.model.JuridiskUtfall
-import no.nav.syfo.etterlevelse.model.JuridiskVurdering
-import no.nav.syfo.etterlevelse.model.JuridiskVurderingResult
-import no.nav.syfo.etterlevelse.model.Lovverk
-import no.nav.syfo.etterlevelse.model.Utfall
+import no.nav.tsm.regulus.regula.juridisk.JuridiskHenvisning
+import no.nav.tsm.regulus.regula.juridisk.JuridiskHenvisningLovverk
+import no.nav.tsm.regulus.regula.juridisk.JuridiskUtfall
+import no.nav.tsm.regulus.regula.juridisk.JuridiskVurdering
 import org.amshove.kluent.shouldBeEqualTo
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
@@ -31,7 +29,7 @@ class JuridiskVurderingMapperKtTest :
                                 fodselsnummer = "12345678910",
                                 juridiskHenvisning =
                                     JuridiskHenvisning(
-                                        lovverk = Lovverk.FOLKETRYGDLOVEN,
+                                        lovverk = JuridiskHenvisningLovverk.FOLKETRYGDLOVEN,
                                         paragraf = "§8-1",
                                         ledd = 1,
                                         punktum = 1,
@@ -68,7 +66,7 @@ class JuridiskVurderingMapperKtTest :
                 juridiskVurderingKafkaMessage.bokstav shouldBeEqualTo "a"
                 juridiskVurderingKafkaMessage.input shouldBeEqualTo mapOf("input" to "verdi")
                 juridiskVurderingKafkaMessage.output shouldBeEqualTo null
-                juridiskVurderingKafkaMessage.utfall shouldBeEqualTo Utfall.VILKAR_OPPFYLT
+                juridiskVurderingKafkaMessage.utfall shouldBeEqualTo JuridiskUtfall.VILKAR_OPPFYLT
             }
         }
     })
