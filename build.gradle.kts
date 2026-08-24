@@ -2,7 +2,7 @@ group = "no.nav.syfo"
 version = "1.0.0"
 
 val coroutinesVersion = "1.10.2"
-val jacksonVersion = "2.20.2"
+val jacksonVersion = "3.2.0"
 val kluentVersion = "1.73"
 val ktorVersion = "3.4.0"
 val logbackVersion = "1.5.21"
@@ -12,7 +12,7 @@ val mockkVersion = "1.14.6"
 val testContainerKafkaVersion = "1.17.6"
 val kotlinVersion = "2.2.21"
 val kotestVersion = "6.0.5"
-val jsonSchemaValidatorVersion = "1.5.9"
+val jsonSchemaValidatorVersion = "3.0.7"
 val koinVersion= "4.1.1"
 val kafkaVersion= "3.9.1"
 
@@ -45,15 +45,15 @@ dependencies {
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-config-yaml")
     implementation("io.ktor:ktor-server-content-negotiation-jvm")
-    implementation("io.ktor:ktor-serialization-jackson-jvm")
+
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm")
     implementation("io.insert-koin:koin-ktor:$koinVersion")
     implementation("io.insert-koin:koin-logger-slf4j:$koinVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("net.logstash.logback:logstash-logback-encoder:$logstashEncoderVersion")
 
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonVersion")
+    implementation("tools.jackson.module:jackson-module-kotlin:$jacksonVersion")
+
 
     testImplementation("org.amshove.kluent:kluent:$kluentVersion")
     testImplementation("io.mockk:mockk:$mockkVersion")

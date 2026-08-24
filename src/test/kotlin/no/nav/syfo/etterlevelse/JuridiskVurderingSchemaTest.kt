@@ -1,10 +1,9 @@
 package no.nav.syfo.etterlevelse
 
-import com.fasterxml.jackson.databind.DeserializationFeature
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
-import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import tools.jackson.databind.DeserializationFeature
+import tools.jackson.databind.cfg.DateTimeFeature
+import tools.jackson.databind.json.JsonMapper
+import tools.jackson.module.kotlin.kotlinModule
 import io.kotest.core.spec.style.FunSpec
 import no.nav.syfo.etterlevelse.model.JuridiskHenvisning
 import no.nav.syfo.etterlevelse.model.JuridiskUtfall
@@ -19,11 +18,11 @@ import java.util.UUID
 class JuridiskVurderingSchemaTest :
     FunSpec({
         val objectMapper =
-            ObjectMapper()
-                .registerModule(JavaTimeModule())
-                .registerKotlinModule()
-                .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
+            JsonMapper.builder()
+                .addModule(kotlinModule())
+                .configure(DateTimeFeature.WRITE_DATES_AS_TIMESTAMPS, false)
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+                .build()
 
         context("JuridiskVurderingMapper") {
             test("Skjema er riktig") {
