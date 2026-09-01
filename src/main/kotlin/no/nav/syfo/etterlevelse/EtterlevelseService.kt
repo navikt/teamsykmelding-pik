@@ -62,6 +62,7 @@ class EtterlevelseService(
                 )
                 .get()
             PRODUCED_MESSAGE_COUNTER.inc()
+            log.info("Sendt juridisk vurdering to $etterlevelseTopic, sporing ${juridiskVurderingKafkaMessage.sporing}")
         } catch (ex: Exception) {
             log.error("Failed to send message to kafka for id ${juridiskVurderingKafkaMessage.id}, sporing ${juridiskVurderingKafkaMessage.sporing}")
             throw ex
