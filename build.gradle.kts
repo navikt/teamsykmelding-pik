@@ -13,7 +13,7 @@ val testContainerKafkaVersion = "1.17.6"
 val kotestVersion = "6.0.5"
 val jsonSchemaValidatorVersion = "3.0.7"
 val koinVersion = "4.1.1"
-val kafkaVersion = "3.9.1"
+val kafkaVersion = "4.3.1"
 
 application {
     mainClass.set("no.nav.syfo.ApplicationKt")
